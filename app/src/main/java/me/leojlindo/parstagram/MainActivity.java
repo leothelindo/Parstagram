@@ -24,6 +24,18 @@ public class MainActivity extends AppCompatActivity {
     ParseUser user = new ParseUser();
 
     @Override
+    protected void onStart(){
+        super.onStart();
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -104,10 +116,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-
-
-
+    private void logOut(){
+        ParseUser.logOut();
+        ParseUser user = ParseUser.getCurrentUser();
+        finish();
+    }
 }
